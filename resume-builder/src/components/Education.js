@@ -1,15 +1,13 @@
 import React from "react";
 
 export default function Education(props) {
-    console.log(props)
     return(
         <div>
             <h1>Education</h1>
             <form>
                 <input type="text" placeholder="Harvard"
                 name="school" value = {props.school}
-                onChange={props.handleChange}
-                //onChange={(e)=>props.handleChange(e, props.id)}
+                onChange={(e)=>props.handleChange(e, props.id)}
                 />
                 <input type="text" placeholder="Psychology"
                 name="degree" value = {props.degree}

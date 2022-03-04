@@ -16,8 +16,8 @@ export default function App() {
         {
             school: "Test",
             degree: "Test",
-            level: "bachelor",
-            gradYear: 2015,
+            level: "Test",
+            gradYear: 2022,
             index: 1,
         }
 )
@@ -47,26 +47,39 @@ export default function App() {
             gradYear={item.gradYear}
             id={item.index}
             remove={removeEducation}
+            handleEdit={handleEdit}
             />
        )
        })
 
        function addEducation() {
-           let newIndex = education.index +1;
-           console.log(newIndex)
-           setEducation(education => {
-               return{...education, index: newIndex}
-           })
-           console.log(education)
+           let newIndex = getUniqueID();
+           let newItem = {school: "",
+           degree: "",
+           level: "",
+           gradYear: 9999,
+           index:newIndex
+        }
+           setEducation({...newItem})
            setEducationArray(prevState => {
-               return ([...prevState, {...education, index: newIndex}])
+               return ([...prevState, {...newItem}])
            })
-           console.log(educationArray)
+       }
+
+       function getUniqueID() {
+        return Math.floor(Math.random() * 100000);
+       }
+
+       function handleEdit(event, id){
+           let selectedItem = educationArray.find(item => id === item.index)
+        setEducation({...selectedItem})
        }
 
        function removeEducation(event, index) {
-           let newArray = educationArray.pop(index-1)
+           let newArray = educationArray.filter(eduItem => eduItem.index !== index)
         setEducationArray(newArray)
+        let initialItem = educationArray.find(item => item.index === 1)
+        setEducation(initialItem)
        }
 
     function handleUpdateContact(event){
@@ -78,11 +91,18 @@ export default function App() {
     }
 
     function handleUpdateEducation(event, id){
+        console.log(id)
         const {name, value} = event.target
         setEducation(prevInfo => ({
             ...prevInfo,
             [name] : value,
         }))
+        let copyArray = educationArray
+        let position = copyArray.findIndex(element => element.index === id)
+        let copyEditElement = copyArray.find(item => id === item.index)
+        let editedCopy = {...copyEditElement, [name]: value}
+        copyArray.splice((position), 1, editedCopy)
+        setEducationArray(copyArray)
     }
 
     function handleUpdateExperience(event){
