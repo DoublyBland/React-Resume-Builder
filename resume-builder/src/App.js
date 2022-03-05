@@ -172,7 +172,12 @@ export default function App() {
     }
     
     return(
-    <div className="app-container">
+        <div className="outer-app-container">
+            <div className="app-headers">
+                <h2>Input</h2>
+                <h2>Display</h2>
+            </div>
+            <div className="app-container">
         <div className="input-container">
             <Contact
             handleChange={handleUpdateContact}
@@ -212,5 +217,6 @@ export default function App() {
             {experienceItems}
         </div>
     </div>
+        </div>
     )
 }

@@ -2,8 +2,19 @@ body {
     margin: 0px;
 }
 
+#root {
+    display: flex;
+    justify-content: center;
+}
+
+.app-headers {
+    display: flex;
+    justify-content: space-around;
+}
+
 .app-container {
     display: flex;
+    margin-top: 35px;
 }
 
 .app-container>div {
